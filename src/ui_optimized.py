@@ -80,8 +80,8 @@ class OptimizedImageGenerator:
         try:
             self.pipeline.enable_attention_slicing()
             print("✓ Attention slicing enabled")
-        except:
-            pass
+        except AttributeError:
+            pass  # Method not available in this version
 
         if self.optimization_level in ["quantize", "aggressive"]:
             try:
@@ -128,8 +128,8 @@ class OptimizedImageGenerator:
                 generator=generator,
             )
             print("✓ Warmup complete")
-        except:
-            pass
+        except Exception as e:
+            print(f"⚠ Warmup failed: {e}")
 
     def generate(
         self,

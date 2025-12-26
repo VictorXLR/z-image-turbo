@@ -1,13 +1,21 @@
 # Z-Image-Turbo
 
-High-quality image generation using [Tongyi-MAI/Z-Image-Turbo](https://huggingface.co/Tongyi-MAI/Z-Image-Turbo) with optimizations for Apple Silicon and CUDA GPUs.
+Generate images from text prompts directly in your terminal. Uses the [Z-Image-Turbo](https://huggingface.co/Tongyi-MAI/Z-Image-Turbo) model with a terminal-native workflow: generate → view inline → vary → save. Works in Ghostty and other terminals supporting the Kitty graphics protocol.
+
+## Quick Start
+
+```bash
+uv sync                      # Install dependencies
+uv run python src/cli.py     # Start generating
+```
 
 ## Features
 
-- **CLI Interface** - Simple command-line image generation
-- **Web UI** - Gradio-based interface with real-time controls
-- **Optimized UI** - Performance-tuned version with multiple optimization strategies
-- **Benchmark Tool** - Test different optimization levels on your hardware
+- **Terminal Viewer** - Generate and view images inline with instant hotkeys
+- **Auto-save** - Images saved to `~/Pictures/Autogen` automatically
+- **Variations** - Same prompt, different seeds with one keypress
+- **Web UI** - Gradio-based interface with resolution controls
+- **Optimized for Mac** - Apple Silicon (MPS) and CUDA support
 
 ## Requirements
 
@@ -31,67 +39,46 @@ HF_XET_HIGH_PERFORMANCE=1 hf download Tongyi-MAI/Z-Image-Turbo
 
 ## Usage
 
-### 1. CLI Generation (`main.py`)
-
-Simple command-line interface with interactive prompt:
+### Terminal Viewer (Recommended)
 
 ```bash
-python main.py
+uv run python src/cli.py                    # 640x480 (fast)
+uv run python src/cli.py -W 1024 -H 1024    # 1024x1024 (high quality)
+uv run python src/cli.py -s 6               # Fewer steps (faster)
 ```
 
-You'll be prompted to enter your text prompt. The image saves to `output.png`.
+**Options:** `-W/--width`, `-H/--height`, `-s/--steps`
 
-Edit the script to customize resolution, steps, or seed.
+Interactive hotkeys:
+- `[c]` Copy to clipboard
+- `[d]` Delete image
+- `[u]` Upscale (2x resolution, same seed, max 1024)
+- `[v]` Variation (new seed)
+- `[r]` Reproduce (same seed)
+- `[m]` Show memory usage
+- `[n]` New prompt
+- `[q]` Quit
 
-### 2. Web UI (`ui.py`)
+The UI shows generation time, RAM usage, and GPU memory with a visual bar.
 
-Standard Gradio interface:
+Images auto-save to `~/Pictures/Autogen/` with prompt-based filenames.
+
+### Web UI
 
 ```bash
-python ui.py
+uv run python src/ui.py           # Standard UI
+uv run python src/ui_optimized.py # With optimization options
 ```
 
-Then open http://localhost:7860 in your browser.
+Open http://localhost:7860 in your browser.
 
-**Features:**
-
-- Text prompt and negative prompt inputs
-- Resolution sliders (512-2048px)
-- Quick presets (square, landscape, portrait)
-- Seed control for reproducibility
-- Example prompts
-
-### 3. Optimized UI (`ui_optimized.py`)
-
-Enhanced interface with performance optimizations:
+### Simple Generation
 
 ```bash
-python ui_optimized.py
+uv run python src/generate.py
 ```
 
-**Optimization Levels:**
-
-- **Standard** - Baseline with attention slicing
-- **Torch Compile** - JIT compilation (best for CUDA)
-- **Int8 Quantization** - Reduced precision for speed
-- **Aggressive** - Compile + Quantization combined
-
-**Note:** First generation with "Torch Compile" is slow (compilation overhead), but subsequent generations are faster.
-
-### 4. Benchmark Tool (`optimize_benchmark.py`)
-
-Test all optimization strategies on your hardware:
-
-```bash
-python optimize_benchmark.py
-```
-
-This will:
-
-- Test 4 different optimization configurations
-- Generate test images for each
-- Report timing and speedup results
-- Recommend the fastest configuration
+Saves a single image to `output.png`.
 
 ## Performance
 
@@ -181,13 +168,16 @@ seed = 43                 # Reproducibility (-1 for random)
 
 ```
 z-image-turbo/
-├── main.py                  # CLI interface
-├── ui.py                    # Standard web UI
-├── ui_optimized.py          # Optimized web UI
-├── optimize_benchmark.py    # Performance benchmark tool
-├── debug_model.py           # Device/dtype testing tool
-├── pyproject.toml           # Dependencies
-└── README.md                # This file
+├── src/
+│   ├── cli.py               # Terminal viewer with Kitty graphics
+│   ├── generate.py          # Simple generation script
+│   ├── ui.py                # Gradio web UI
+│   └── ui_optimized.py      # Web UI with optimization options
+├── scripts/
+│   ├── debug_model.py       # Device/dtype testing
+│   └── optimize_benchmark.py # Performance benchmarking
+├── pyproject.toml
+└── README.md
 ```
 
 ## Dependencies
@@ -212,7 +202,9 @@ z-image-turbo/
 
 ## License
 
-This project uses the Z-Image-Turbo model. Check the [model card](https://huggingface.co/Tongyi-MAI/Z-Image-Turbo) for licensing information.
+MIT License. See [LICENSE](LICENSE) for details.
+
+Note: The Z-Image-Turbo model has its own license. See the [model card](https://huggingface.co/Tongyi-MAI/Z-Image-Turbo) for details.
 
 ## Acknowledgments
 

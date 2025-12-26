@@ -55,8 +55,8 @@ class ImageGenerator:
         if self.device in ["mps", "cuda"]:
             try:
                 self.pipeline.enable_attention_slicing()
-            except:
-                pass
+            except AttributeError:
+                pass  # Method not available in this version
 
         return f"Model loaded successfully on {device_info}"
 

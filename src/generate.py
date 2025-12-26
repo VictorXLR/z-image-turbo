@@ -70,8 +70,8 @@ def main():
             try:
                 pipeline.enable_attention_slicing()
                 print("✓ Memory optimization enabled")
-            except:
-                pass
+            except AttributeError:
+                pass  # Method not available in this version
 
         print("✓ Model loaded successfully!")
 

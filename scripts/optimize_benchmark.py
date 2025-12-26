@@ -74,16 +74,16 @@ class OptimizedPipeline:
         print("Applying: Attention slicing")
         try:
             self.pipeline.enable_attention_slicing()
-        except:
-            pass
+        except AttributeError:
+            pass  # Method not available
 
     def _apply_compile_optimizations(self):
         """Use torch.compile for JIT optimization"""
         print("Applying: Attention slicing + torch.compile")
         try:
             self.pipeline.enable_attention_slicing()
-        except:
-            pass
+        except AttributeError:
+            pass  # Method not available
 
         print("Compiling UNet (this takes time but speeds up inference)...")
         try:
@@ -102,8 +102,8 @@ class OptimizedPipeline:
         print("Applying: Attention slicing + int8 quantization")
         try:
             self.pipeline.enable_attention_slicing()
-        except:
-            pass
+        except AttributeError:
+            pass  # Method not available
 
         try:
             from torchao.quantization import quantize_, int8_weight_only
@@ -124,8 +124,8 @@ class OptimizedPipeline:
         print("Applying: Attention slicing + quantization + compile")
         try:
             self.pipeline.enable_attention_slicing()
-        except:
-            pass
+        except AttributeError:
+            pass  # Method not available
 
         # Try quantization first
         try:
