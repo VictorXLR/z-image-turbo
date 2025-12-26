@@ -1,7 +1,7 @@
 [project]
-name = "z-image-turbo"
+name = "turbo-term"
 version = "0.1.0"
-description = "Fast image generation with Z-Image-Turbo, featuring a terminal viewer with Kitty graphics protocol and Gradio web UI. Optimized for Apple Silicon and CUDA."
+description = "Terminal-based image generation with Z-Image-Turbo. Features inline image viewing with Kitty graphics protocol, hotkey controls, and Gradio web UI. Optimized for Apple Silicon and CUDA."
 readme = "README.md"
 requires-python = ">=3.12"
 license = {text = "MIT"}
@@ -15,11 +15,5 @@ dependencies = [
     "torchao>=0.7.0",
     "torchvision>=0.24.1",
     "transformers>=4.57.3",
-]
-
-[project.optional-dependencies]
-dev = [
-    "pytest>=7.0.0",
-    "pytest-cov>=4.0.0",
 ]
 

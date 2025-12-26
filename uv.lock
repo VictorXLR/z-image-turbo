@@ -1674,6 +1674,44 @@ wheels = [
 ]
 
 [[package]]
+name = "turbo-term"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "accelerate" },
+    { name = "diffusers" },
+    { name = "gradio" },
+    { name = "pillow" },
+    { name = "requests" },
+    { name = "torch" },
+    { name = "torchao" },
+    { name = "torchvision" },
+    { name = "transformers" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "pytest" },
+    { name = "pytest-cov" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "accelerate", specifier = ">=1.12.0" },
+    { name = "diffusers", git = "https://github.com/huggingface/diffusers" },
+    { name = "gradio", specifier = ">=5.0.0" },
+    { name = "pillow", specifier = ">=12.0.0" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=7.0.0" },
+    { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=4.0.0" },
+    { name = "requests", specifier = ">=2.31.0" },
+    { name = "torch", specifier = ">=2.9.1" },
+    { name = "torchao", specifier = ">=0.7.0" },
+    { name = "torchvision", specifier = ">=0.24.1" },
+    { name = "transformers", specifier = ">=4.57.3" },
+]
+provides-extras = ["dev"]
+
+[[package]]
 name = "typer"
 version = "0.20.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1739,44 +1777,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/cb/ce/f06b84e2697fef468
 wheels = [
     { url = "https://files.pythonhosted.org/packages/ee/d9/d88e73ca598f4f6ff671fb5fde8a32925c2e08a637303a1d12883c7305fa/uvicorn-0.38.0-py3-none-any.whl", hash = "sha256:48c0afd214ceb59340075b4a052ea1ee91c16fbc2a9b1469cca0e54566977b02", size = 68109, upload-time = "2025-10-18T13:46:42.958Z" },
 ]
-
-[[package]]
-name = "z-image-turbo"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "accelerate" },
-    { name = "diffusers" },
-    { name = "gradio" },
-    { name = "pillow" },
-    { name = "requests" },
-    { name = "torch" },
-    { name = "torchao" },
-    { name = "torchvision" },
-    { name = "transformers" },
-]
-
-[package.optional-dependencies]
-dev = [
-    { name = "pytest" },
-    { name = "pytest-cov" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "accelerate", specifier = ">=1.12.0" },
-    { name = "diffusers", git = "https://github.com/huggingface/diffusers" },
-    { name = "gradio", specifier = ">=5.0.0" },
-    { name = "pillow", specifier = ">=12.0.0" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=7.0.0" },
-    { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=4.0.0" },
-    { name = "requests", specifier = ">=2.31.0" },
-    { name = "torch", specifier = ">=2.9.1" },
-    { name = "torchao", specifier = ">=0.7.0" },
-    { name = "torchvision", specifier = ">=0.24.1" },
-    { name = "transformers", specifier = ">=4.57.3" },
-]
-provides-extras = ["dev"]
 
 [[package]]
 name = "zipp"

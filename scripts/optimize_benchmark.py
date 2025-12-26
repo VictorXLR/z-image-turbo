@@ -26,9 +26,9 @@ class OptimizedPipeline:
 
     def load(self):
         """Load and optimize the pipeline"""
-        print(f"\n{'='*70}")
+        print(f"\n{'=' * 70}")
         print(f"Loading with optimization: {self.optimization_level.upper()}")
-        print(f"{'='*70}")
+        print(f"{'=' * 70}")
 
         # Device setup
         if torch.backends.mps.is_available():
@@ -184,10 +184,10 @@ class OptimizedPipeline:
 
 def benchmark():
     """Run benchmark comparing different optimization levels"""
-    print("\n" + "="*70)
-    print("Z-Image-Turbo Optimization Benchmark")
+    print("\n" + "=" * 70)
+    print("Turbo-Term Optimization Benchmark")
     print("Testing different optimization strategies on your hardware")
-    print("="*70)
+    print("=" * 70)
 
     prompt = "a serene mountain landscape at sunset, photorealistic, 8k"
     seed = 43
@@ -203,9 +203,9 @@ def benchmark():
     results = {}
 
     for config_name, config_desc in configs:
-        print(f"\n{'='*70}")
+        print(f"\n{'=' * 70}")
         print(f"Testing: {config_desc}")
-        print(f"{'='*70}")
+        print(f"{'=' * 70}")
 
         try:
             pipeline = OptimizedPipeline(optimization_level=config_name)
@@ -237,9 +237,9 @@ def benchmark():
             results[config_desc] = None
 
     # Print results
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
     print("BENCHMARK RESULTS")
-    print("="*70)
+    print("=" * 70)
 
     baseline = results.get("Standard (baseline)")
 
@@ -248,18 +248,20 @@ def benchmark():
 
     for config_desc, elapsed in results.items():
         if elapsed is not None:
-            speedup = f"{baseline/elapsed:.2f}x" if baseline and baseline > 0 else "N/A"
+            speedup = (
+                f"{baseline / elapsed:.2f}x" if baseline and baseline > 0 else "N/A"
+            )
             print(f"{config_desc:<30} {elapsed:<12.2f} {speedup:<10}")
         else:
             print(f"{config_desc:<30} {'FAILED':<12} {'N/A':<10}")
 
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
 
     # Recommendation
     fastest = min(
         [(desc, time) for desc, time in results.items() if time is not None],
         key=lambda x: x[1],
-        default=None
+        default=None,
     )
 
     if fastest:
@@ -268,7 +270,7 @@ def benchmark():
     else:
         print("❌ All optimizations failed")
 
-    print("="*70)
+    print("=" * 70)
 
 
 if __name__ == "__main__":

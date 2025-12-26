@@ -10,9 +10,9 @@ from diffusers import ZImagePipeline
 
 def test_generation(device, dtype, dtype_name):
     """Test image generation with specific device/dtype"""
-    print(f"\n{'='*70}")
+    print(f"\n{'=' * 70}")
     print(f"Testing: {device.upper()} with {dtype_name}")
-    print(f"{'='*70}")
+    print(f"{'=' * 70}")
 
     try:
         print("Loading model...")
@@ -45,12 +45,15 @@ def test_generation(device, dtype, dtype_name):
 
         # Check if image is all black
         import numpy as np
+
         img_array = np.array(image)
         mean_value = img_array.mean()
         max_value = img_array.max()
         min_value = img_array.min()
 
-        print(f"Image stats - Mean: {mean_value:.2f}, Min: {min_value}, Max: {max_value}")
+        print(
+            f"Image stats - Mean: {mean_value:.2f}, Min: {min_value}, Max: {max_value}"
+        )
 
         if max_value < 10:
             print("❌ RESULT: Image is all black (FAILED)")
@@ -68,7 +71,7 @@ def test_generation(device, dtype, dtype_name):
 
 
 def main():
-    print("Z-Image-Turbo Configuration Tester")
+    print("Turbo-Term Configuration Tester")
     print("This will test different device/dtype combinations\n")
 
     results = {}
@@ -97,9 +100,9 @@ def main():
     results["CPU + float32"] = test_generation("cpu", torch.float32, "float32")
 
     # Summary
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
     print("SUMMARY OF RESULTS")
-    print("="*70)
+    print("=" * 70)
 
     working_configs = []
     for config, passed in results.items():
@@ -108,7 +111,7 @@ def main():
         if passed:
             working_configs.append(config)
 
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
     if working_configs:
         print(f"✅ Found {len(working_configs)} working configuration(s):")
         for config in working_configs:
@@ -120,9 +123,11 @@ def main():
         print("\nTroubleshooting suggestions:")
         print("1. Verify model files downloaded correctly")
         print("2. Check available disk space")
-        print("3. Try updating diffusers: pip install --upgrade git+https://github.com/huggingface/diffusers")
+        print(
+            "3. Try updating diffusers: pip install --upgrade git+https://github.com/huggingface/diffusers"
+        )
         print("4. Check if model is compatible with your hardware")
-    print("="*70)
+    print("=" * 70)
 
 
 if __name__ == "__main__":

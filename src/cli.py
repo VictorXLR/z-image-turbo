@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Terminal Image Viewer for Z-Image-Turbo
+Turbo-Term Terminal Viewer
 Displays generated images in Ghostty with interactive hotkeys
 """
 
@@ -366,9 +366,7 @@ class TerminalImageViewer:
     def show_menu(self):
         """Show interactive menu with instant hotkeys"""
         print(f"\n" + "=" * 60)
-        print(
-            f"🖼️  Z-Image-Turbo ({self.width}x{self.height}) • {self.last_gen_time:.1f}s"
-        )
+        print(f"🖼️  Turbo-Term ({self.width}x{self.height}) • {self.last_gen_time:.1f}s")
         print(f"Prompt: {self.current_prompt}")
         print(f"Seed: {self.current_seed}")
         print(f"{self.format_memory_display()}")
@@ -483,7 +481,7 @@ class TerminalImageViewer:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Generate images in your terminal with Z-Image-Turbo"
+        description="Turbo-Term: Generate images in your terminal with Z-Image-Turbo"
     )
     parser.add_argument(
         "-W", "--width", type=int, default=640, help="Image width (default: 640)"

@@ -1,4 +1,4 @@
-# Z-Image-Turbo
+# Turbo-Term
 
 Generate images from text prompts directly in your terminal. Uses the [Z-Image-Turbo](https://huggingface.co/Tongyi-MAI/Z-Image-Turbo) model with a terminal-native workflow: generate → view inline → vary → save. Works in Ghostty and other terminals supporting the Kitty graphics protocol.
 
@@ -173,7 +173,7 @@ seed = 43                 # Reproducibility (-1 for random)
 ## Project Structure
 
 ```
-z-image-turbo/
+turbo-term/
 ├── src/
 │   ├── cli.py               # Terminal viewer with Kitty graphics
 │   ├── generate.py          # Simple generation script

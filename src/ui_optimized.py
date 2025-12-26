@@ -187,10 +187,10 @@ generator = OptimizedImageGenerator()
 def create_ui():
     """Create and configure the Gradio interface"""
 
-    with gr.Blocks(title="Z-Image-Turbo Optimized") as demo:
+    with gr.Blocks(title="Turbo-Term Optimized") as demo:
         gr.Markdown(
             """
-            # Z-Image-Turbo (Optimized for M4 Max)
+            # Turbo-Term (Optimized for M4 Max)
             Generate high-quality images with performance optimizations.
             """
         )

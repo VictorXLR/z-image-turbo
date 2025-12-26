@@ -11,9 +11,11 @@ import torch
 from diffusers import ZImagePipeline
 
 
+MODEL_ID = "Tongyi-MAI/Z-Image-Turbo"  # HuggingFace model ID
+
+
 def main():
     # Configuration
-    model_id = "Tongyi-MAI/Z-Image-Turbo"  # HuggingFace model ID
     prompt = input("prompt > ")
 
     negative_prompt = ""
@@ -27,9 +29,9 @@ def main():
     seed = 43  # Set to a number for reproducible results
 
     print("=" * 70)
-    print("Z-Image-Turbo Image Generation")
+    print("Turbo-Term Image Generation")
     print("=" * 70)
-    print(f"Model: {model_id}")
+    print(f"Model: {MODEL_ID}")
     print(f"Prompt: {prompt}")
     print(f"Resolution: {width}x{height}")
     print(f"Steps: {num_inference_steps}")
@@ -56,7 +58,7 @@ def main():
         print("   This may take several minutes...")
 
         pipeline = ZImagePipeline.from_pretrained(
-            model_id,
+            MODEL_ID,
             torch_dtype=dtype,
             use_safetensors=True,
             low_cpu_mem_usage=False,

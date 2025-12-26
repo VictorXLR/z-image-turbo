@@ -116,10 +116,10 @@ generator = ImageGenerator()
 def create_ui():
     """Create and configure the Gradio interface"""
 
-    with gr.Blocks(title="Z-Image-Turbo") as demo:
+    with gr.Blocks(title="Turbo-Term") as demo:
         gr.Markdown(
             """
-            # Z-Image-Turbo Image Generator
+            # Turbo-Term Image Generator
             Generate high-quality images with sub-second inference using Z-Image-Turbo.
             """
         )
