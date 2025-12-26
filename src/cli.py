@@ -15,6 +15,7 @@ warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 import logging
+
 logging.getLogger("torch.distributed").setLevel(logging.ERROR)
 logging.getLogger("torch").setLevel(logging.ERROR)
 
@@ -149,7 +150,9 @@ class TerminalImageViewer:
             gpu_used = stats["gpu_used"]
             gpu_total = stats["gpu_total"]
             bar = memory_bar(gpu_used, gpu_total, width=15)
-            parts.append(f"GPU: {bar} {format_bytes(gpu_used)}/{format_bytes(gpu_total)}")
+            parts.append(
+                f"GPU: {bar} {format_bytes(gpu_used)}/{format_bytes(gpu_total)}"
+            )
 
         return "  ".join(parts) if parts else "Memory: N/A"
 
@@ -245,8 +248,7 @@ class TerminalImageViewer:
             # Resize for terminal display
             ratio = max_width / image.width
             display_image = image.resize(
-                (max_width, int(image.height * ratio)),
-                Image.Resampling.LANCZOS
+                (max_width, int(image.height * ratio)), Image.Resampling.LANCZOS
             )
 
             # Convert to PNG bytes
@@ -259,7 +261,10 @@ class TerminalImageViewer:
 
             # Write using Kitty graphics protocol with chunking
             chunk_size = 4096
-            chunks = [b64_data[i:i + chunk_size] for i in range(0, len(b64_data), chunk_size)]
+            chunks = [
+                b64_data[i : i + chunk_size]
+                for i in range(0, len(b64_data), chunk_size)
+            ]
 
             for i, chunk in enumerate(chunks):
                 is_last = i == len(chunks) - 1
@@ -315,11 +320,11 @@ class TerminalImageViewer:
     def save_image(self, image: Image.Image, prompt: str = None) -> Path:
         """Save image to ~/Pictures/Autogen and return filepath"""
         prompt = prompt or self.current_prompt
-        # Generate filename from prompt
-        safe_prompt = "".join(
-            c for c in prompt[:30] if c.isalnum() or c.isspace()
-        ).rstrip()
-        safe_prompt = safe_prompt.replace(" ", "_") or "output"
+        # Generate filename from prompt - handle unicode properly
+        import re
+
+        safe_prompt = re.sub(r"[^\w\s-]", "", prompt[:30], flags=re.UNICODE)
+        safe_prompt = re.sub(r"[-\s]+", "_", safe_prompt).strip("_") or "output"
         counter = 1
         while True:
             filepath = self.OUTPUT_DIR / f"{safe_prompt}_{counter}.png"
@@ -361,7 +366,9 @@ class TerminalImageViewer:
     def show_menu(self):
         """Show interactive menu with instant hotkeys"""
         print(f"\n" + "=" * 60)
-        print(f"🖼️  Z-Image-Turbo ({self.width}x{self.height}) • {self.last_gen_time:.1f}s")
+        print(
+            f"🖼️  Z-Image-Turbo ({self.width}x{self.height}) • {self.last_gen_time:.1f}s"
+        )
         print(f"Prompt: {self.current_prompt}")
         print(f"Seed: {self.current_seed}")
         print(f"{self.format_memory_display()}")
@@ -479,24 +486,17 @@ def main():
         description="Generate images in your terminal with Z-Image-Turbo"
     )
     parser.add_argument(
-        "-W", "--width", type=int, default=640,
-        help="Image width (default: 640)"
+        "-W", "--width", type=int, default=640, help="Image width (default: 640)"
     )
     parser.add_argument(
-        "-H", "--height", type=int, default=480,
-        help="Image height (default: 480)"
+        "-H", "--height", type=int, default=480, help="Image height (default: 480)"
     )
     parser.add_argument(
-        "-s", "--steps", type=int, default=9,
-        help="Inference steps (default: 9)"
+        "-s", "--steps", type=int, default=9, help="Inference steps (default: 9)"
     )
     args = parser.parse_args()
 
-    viewer = TerminalImageViewer(
-        width=args.width,
-        height=args.height,
-        steps=args.steps
-    )
+    viewer = TerminalImageViewer(width=args.width, height=args.height, steps=args.steps)
     viewer.run()
 
 

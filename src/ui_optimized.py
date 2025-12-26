@@ -31,7 +31,7 @@ class OptimizedImageGenerator:
             "Standard": "standard",
             "Torch Compile (Recommended for M4)": "compile",
             "Int8 Quantization": "quantize",
-            "Aggressive (Compile + Quantize)": "aggressive"
+            "Aggressive (Compile + Quantize)": "aggressive",
         }
         self.optimization_level = opt_map.get(optimization, "standard")
 
@@ -205,11 +205,11 @@ def create_ui():
                         "Standard",
                         "Torch Compile (Recommended for M4)",
                         "Int8 Quantization",
-                        "Aggressive (Compile + Quantize)"
+                        "Aggressive (Compile + Quantize)",
                     ],
                     value="Torch Compile (Recommended for M4)",
                     label="Optimization Level",
-                    info="Torch Compile gives 2-3x speedup on M4. First generation is slower (compilation)."
+                    info="Torch Compile gives 2-3x speedup on M4. First generation is slower (compilation).",
                 )
 
                 load_btn = gr.Button("Load Model", variant="primary", size="lg")
@@ -278,17 +278,13 @@ def create_ui():
                     )
 
                 # Generate button
-                generate_btn = gr.Button(
-                    "Generate Image", variant="primary", size="lg"
-                )
+                generate_btn = gr.Button("Generate Image", variant="primary", size="lg")
 
             with gr.Column(scale=1):
                 # Output
                 output_image = gr.Image(label="Generated Image", type="pil")
                 generation_info = gr.Textbox(
-                    label="Generation Info",
-                    interactive=False,
-                    lines=2
+                    label="Generation Info", interactive=False, lines=2
                 )
 
                 gr.Markdown(
@@ -303,9 +299,7 @@ def create_ui():
 
         # Event handlers
         load_btn.click(
-            fn=generator.load_model,
-            inputs=[optimization_choice],
-            outputs=load_status
+            fn=generator.load_model, inputs=[optimization_choice], outputs=load_status
         )
 
         generate_btn.click(
@@ -344,7 +338,7 @@ def create_ui():
 if __name__ == "__main__":
     demo = create_ui()
     demo.launch(
-        server_name="0.0.0.0",
+        server_name="127.0.0.1",  # Localhost only (more secure)
         server_port=7860,
         share=False,
     )

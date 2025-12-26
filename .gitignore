@@ -8,7 +8,31 @@ wheels/
 
 # Virtual environments
 .venv
+venv/
 
 # Generated images
 *.png
 benchmark/*.png
+
+# Log files
+*.log
+
+# Environment variables
+.env
+.env.local
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Temporary files
+tmp/
+temp/

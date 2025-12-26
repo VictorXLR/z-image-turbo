@@ -5,8 +5,14 @@ Generate images from text prompts directly in your terminal. Uses the [Z-Image-T
 ## Quick Start
 
 ```bash
-uv sync                      # Install dependencies
-uv run python src/cli.py     # Start generating
+# 1. Install dependencies
+uv sync
+
+# 2. Download the model from Hugging Face (~32GB)
+HF_XET_HIGH_PERFORMANCE=1 hf download Tongyi-MAI/Z-Image-Turbo
+
+# 3. Start generating
+uv run python src/cli.py
 ```
 
 ## Features
